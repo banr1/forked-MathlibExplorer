@@ -1,7 +1,7 @@
 import os, networkx as nx
 
 # path to Mathlib folder
-mathlib_src_path = os.path.abspath("../mathlib4")
+mathlib_src_path = os.path.abspath("../forked-mathlib4")
 graph_path = os.path.join(mathlib_src_path, "import_graph.dot")
 output_filename = "import_graph.txt"
 
@@ -36,7 +36,8 @@ If you would like to try your own ideas, read the output section, and fill these
 G = nx.DiGraph()
 with open(graph_path, "r") as f:
     for line in f:
-        if line.startswith("  "):
+        # if line contains '->', it is an edge
+        if "->" in line:
             src, dst = line.strip().split(" -> ")
             G.add_edge(src[1:-1], dst[1:-2])
 
